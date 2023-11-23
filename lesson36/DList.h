@@ -2,31 +2,31 @@
 #include <iostream>
 using namespace std;
 
-namespace myList {
+namespace DList {
 	template <typename T>
-	class Node 
+	class Node
 	{
 	public:
 		T info;
+		Node* prev;
 		Node* next;
 
 		Node(T value) {
 			info = value;
-			next = nullptr;
+			prev = next = nullptr;
 		}
 
 		void show()const {
 			cout << "Info: " << info << endl;
-			cout << "\tNext: " << next << endl;
+			cout << "\tPrev: " << prev << endl;
+			cout << "\tNext: " << next << endl << endl;
 		}
 	};
 
 	template <typename U>
-	class List 
-	{
+	class List {
 		Node<U>* head;
 		Node<U>* tail;
-
 	public:
 		List() {
 			head = tail = nullptr;
@@ -41,6 +41,7 @@ namespace myList {
 			else
 			{
 				tail->next = el;
+				el->prev = tail;
 				tail = el;
 			}
 		}
@@ -54,6 +55,7 @@ namespace myList {
 			else
 			{
 				el->next = head;
+				head->prev = el;
 				head = el;
 			}
 		}
@@ -67,11 +69,12 @@ namespace myList {
 			else
 			{
 				Node<U>* p = head;
-				while (p!=nullptr)
+				while (p != nullptr)
 				{
 					if (p->info == after)
 					{
 						el->next = p->next;
+						el->prev = p;
 						p->next = el;
 						return;
 					}
@@ -80,6 +83,7 @@ namespace myList {
 				if (p == nullptr)
 				{
 					tail->next = el;
+					el->prev = tail;
 					tail = el;
 				}
 			}
