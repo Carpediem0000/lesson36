@@ -104,5 +104,21 @@ namespace DList {
 				}
 			}
 		}
+
+		void showRev()const {
+			Node<U>* p = tail;
+			if (head == nullptr)
+			{
+				cout << "List is empty!\n";
+			}
+			else
+			{
+				while (p != nullptr)
+				{
+					cout << p->info << " ";
+					p = p->prev;
+				}
+			}
+		}
 	};
 }
