@@ -1,46 +1,55 @@
 #include "MyList.h"
 #include "DList.h"
+#include <list>
+#include <algorithm>
 
 int main()
 {
-	/*DList::Node<int> first(6);
-	DList::Node<int> second(12);
-	first.next = &second;
+	list<int> a;
+	a.push_back(5);
+	a.push_back(8);
+	a.push_back(-4);
+	a.push_back(45);
+	a.push_back(13);
+	a.push_back(1);
+	a.push_back(0);
+	a.push_back(-5);
 
-	DList::Node<int> third(9);
-	second.prev = &first;
-	second.next = &third;
+	int max = *max_element(a.begin(), a.end());
+	cout << max;
 
-	DList::Node<int> fourth(-4);
-	third.prev = &second;
-	third.next = &fourth;
-	fourth.prev = &third;
-
-	DList::Node<int>* p = &first;
-
-	while (p != nullptr)
-	{
-		p->show();
-		p = p->next;
-	}
-
-	p = &fourth;
-	cout << "=================================\n";
-
-	while (p != nullptr)
-	{
-		p->show();
-		p = p->prev;
+	/*for (int& obj : a) {
+		if (obj < 0)
+		{
+			obj = 0;
+		}
 	}*/
 
-	DList::List<int> a;
+	cout << "\n---------------------------\n";
+	replace_if(a.begin(), a.end(), [](int first) {return first < 0; }, 0);
 
-	a.pushBack(4);
-	a.pushBack(12);
-	a.pushBack(9);
-	a.pushBack(-56);
+	for (int& obj : a) {
+		cout << obj << " ";
+	}
+	cout << "\n---------------------------\n";
 
-	a.show();
-	cout << "\n============================\n";
-	a.showRev();
+	for_each(a.begin(), a.end(), [max](int& num) {num += max; });
+	for_each(a.begin(), a.end(), [](int num) {cout << num << " "; });
+	cout << "\n---------------------------\n";
+
+	list<int>::iterator it = a.begin();
+
+	while (it != a.end())
+	{
+		if (*it == 45)
+		{
+			cout << "Delete: " << *it << endl;
+			a.erase(it);
+			break;
+		}
+		it++;
+	}
+	for_each(a.begin(), a.end(), [](int num) {cout << num << " "; });
+	cout << "\n---------------------------\n";
+
 }
